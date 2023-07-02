@@ -15,7 +15,7 @@ class Topping(PublishedModel):
 
 
 class Wrapper(PublishedModel):
-    title = models.CharField(max_length=256)
+    title = models.CharField(max_length=256, help_text='Название обёртки')
 
 
 class IceCream(PublishedModel):
@@ -35,4 +35,11 @@ class IceCream(PublishedModel):
     )
     toppings = models.ManyToManyField(Topping)
     is_on_main = models.BooleanField(default=False)
+    output_order = models.PositiveSmallIntegerField(
+        default=100,
+        verbose_name='Порядок отображения'
+    )
+    price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Цена')
 
+    class Meta:
+        ordering = ('output_order', 'title')
